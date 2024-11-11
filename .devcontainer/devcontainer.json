@@ -1,0 +1,15 @@
+{
+    "name": "Java Codespace",
+    "image": "mcr.microsoft.com/devcontainers/java:17", // Specify Java version, e.g., 11, 17, etc.
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "vscjava.vscode-java-pack",
+          "pivotal.vscode-spring-boot",
+          "redhat.vscode-xml"
+        ]
+      }
+    },
+    "postCreateCommand": "mvn clean install" // For Maven; use 'gradle build' if you're using Gradle
+  }
+  
