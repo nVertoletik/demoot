@@ -1,6 +1,13 @@
 {
     "name": "Java Codespace",
-    "image": "mcr.microsoft.com/devcontainers/java:17", // Specify Java version, e.g., 11, 17, etc.
+    "image": "mcr.microsoft.com/devcontainers/java:21",
+    "features": {
+        "ghcr.io/devcontainers/features/java:1": {
+            "version": "none",
+            "installMaven": "true"
+        },
+        "docker-in-docker": "latest"
+    },  
     "customizations": {
       "vscode": {
         "extensions": [
