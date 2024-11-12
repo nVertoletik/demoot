@@ -21,6 +21,6 @@
         "ONEAGENT_INSTALLER_SCRIPT_URL": "${{ secrets.ONEAGENT_INSTALLER_SCRIPT_URL }}",
         "ONEAGENT_INSTALLER_DOWNLOAD_TOKEN": "${{ secrets.ONEAGENT_INSTALLER_DOWNLOAD_TOKEN }}"
     },
-    "postCreateCommand": "/bin/bash .devcontainer/setup.sh > setup.log"
+    "postCreateCommand": "/bin/bash .devcontainer/setup.sh"
   }
   
