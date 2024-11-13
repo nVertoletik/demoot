@@ -1,20 +1,43 @@
 version: '3.8'
 services:
-  server:
+  backend:
     build:
       context: .
-      dockerfile: ./server/Dockerfile
+      dockerfile: ./backend/Dockerfile
+    depends_on:
+      - opentelemetry-collector
     ports:
       - "8080:8080"
     networks:
       - app-network
 
-  client:
+  frontend:
     build:
       context: .
-      dockerfile: ./client/Dockerfile
+      dockerfile: ./frontend/Dockerfile
     depends_on:
-      - server
+      - backend
+    networks:
+      - app-network
+
+  loadgen:
+    build:
+      context: .
+      dockerfile: ./loadgen/Dockerfile
+    depends_on:
+      - frontend
+    networks:
+      - app-network
+
+  opentelemetry-collector:
+    image: otel/opentelemetry-collector:latest
+    container_name: opentelemetry-collector
+    volumes:
+      - ./collector/otel-collector-config.yaml:/etc/otel-collector-config.yaml
+    ports:
+      - "4317:4317"
+      - "55680:55680"
+    command: --config /etc/otel-collector-config.yaml      
     networks:
       - app-network
 

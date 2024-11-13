@@ -1,0 +1,44 @@
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: localhost:4318
+      grpc:
+        endpoint: localhost:4317
+
+processors:
+  batch:
+  filter:
+    metrics:
+      exclude:
+        match_type: regexp
+        metric_names:
+          - process.runtime.jvm.system.*
+
+exporters:
+  debug:
+    verbosity: normal
+  otlphttp:
+    endpoint: https://########.sprint.dynatracelabs.com/api/v2/otlp
+    # --- for standard environments ---
+    # endpoint: https://########.live.dynatrace.com/api/v2/otlp
+    headers:
+      Authorization: "Api-Token ${OTEL_API_TOKEN}"
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [debug, otlphttp]
+    #logs:
+    #  receivers: [otlp]
+    #  processors: [batch]
+    #  exporters: [debug, otlphttp]
+    metrics:
+      receivers: [otlp]
+      processors: [batch, filter]
+      exporters: [debug, otlphttp]
+  #telemetry:
+  #  logs:
+  #    level: debug" >/etc/otelcol/config.yaml
