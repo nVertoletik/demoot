@@ -9,6 +9,13 @@
     <artifactId>client</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+	<properties>
+		<java.version>17</java.version>
+		<maven.compiler.target>17</maven.compiler.target>
+		<maven.compiler.source>17</maven.compiler.source>
+		<otel.version>1.30.0</otel.version>
+	</properties>
+
     <dependencies>
         <dependency>
             <groupId>dtcookie</groupId>
@@ -35,11 +42,29 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>dtcookie.client.ClientApp</mainClass>
+                            <mainClass>com.dtcookie.shop.frontend.FrontendServer</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
-            </plugin>            
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.1</version> <!-- Use the latest version -->
+                <executions>
+                    <execution>
+                        <phase>package</phase> <!-- Bind the plugin to the 'package' phase -->
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <shadedArtifactAttached>true</shadedArtifactAttached>
+                            <shadedClassifierName>all</shadedClassifierName> <!-- Optional: name for the shaded jar -->
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>                         
         </plugins>
     </build>     
 </project>
