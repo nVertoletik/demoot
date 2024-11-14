@@ -15,7 +15,7 @@ export DT_ENVIRONMENT_HOST
 sudo sh -c "echo \"DT_ENVIRONMENT_HOST=$DT_ENVIRONMENT_HOST\" >> /etc/environment"
 echo "export DT_ENVIRONMENT_HOST=$DT_ENVIRONMENT_HOST" >> ~/.bashrc
 
-sed -i "s/DYNATRACE_DOCKER_REGISTRY/$DT_ENVIRONMENT_HOST/g" ../frontend/Dockerfile
+sed -i "s/DYNATRACE_DOCKER_REGISTRY/$DT_ENVIRONMENT_HOST/g" ./frontend/Dockerfile
 # $DT_API_TOKEN
 # $DT_ENVIRONMENT_URL
 
