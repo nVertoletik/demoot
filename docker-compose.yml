@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: ./backend/Dockerfile
     depends_on:
-      - opentelemetry-collector
+      - quotes
     ports:
       - "54040:54040"
       - "54041:54041"
@@ -20,6 +20,17 @@ services:
       - backend
     ports:
       - "54039:54039"
+    networks:
+      - app-network
+
+  quotes:
+    build:
+      context: .
+      dockerfile: ./quotes/Dockerfile
+    depends_on:
+      - opentelemetry-collector
+    ports:
+      - "8090:8090"
     networks:
       - app-network
 
