@@ -110,7 +110,7 @@ public interface Http {
 
     public static void serve(int port, final HttpHandlers handlers) throws IOException {
         com.sun.net.httpserver.HttpServer server = com.sun.net.httpserver.HttpServer
-                .create(new InetSocketAddress("localhost", port), 0);
+                .create(new InetSocketAddress("0.0.0.0", port), 0);
         server.setExecutor(Executors.newCachedThreadPool());
         for (Map.Entry<String, HttpHandler> entry : handlers.handlers.entrySet()) {
             com.sun.net.httpserver.HttpContext ctx = server.createContext(entry.getKey());

@@ -10,7 +10,6 @@ import java.util.concurrent.Executors;
 import com.dtcookie.shop.Ports;
 import com.dtcookie.util.Streams;
 
-
 public class LoadGenerator extends TimerTask {
 
 	private static final Timer timer = new Timer(false);
@@ -26,7 +25,7 @@ public class LoadGenerator extends TimerTask {
 	}
 
 	public static Object sendRequest() throws Exception {
-		URL url = new URL("http://localhost:" + Ports.FRONTEND_LISTEN_PORT + "/place-order");
+		URL url = new URL("http://frontend:" + Ports.FRONTEND_LISTEN_PORT + "/place-order");
 		try (InputStream in = url.openStream()) {
 			Streams.drain(in);
 		}

@@ -7,7 +7,8 @@ services:
     depends_on:
       - opentelemetry-collector
     ports:
-      - "8080:8080"
+      - "54040:54040"
+      - "54041:54041"
     networks:
       - app-network
 
@@ -17,6 +18,8 @@ services:
       dockerfile: ./frontend/Dockerfile
     depends_on:
       - backend
+    ports:
+      - "54039:54039"
     networks:
       - app-network
 
@@ -31,11 +34,15 @@ services:
 
   opentelemetry-collector:
     image: otel/opentelemetry-collector:latest
+    environment:
+      - ENVIRONMENT_ID=${ENVIRONMENT_ID}
+      - DT_API_TOKEN=${DT_API_TOKEN}    
     container_name: opentelemetry-collector
     volumes:
       - ./collector/otel-collector-config.yaml:/etc/otel-collector-config.yaml
     ports:
       - "4317:4317"
+      - "4318:4318"
       - "55680:55680"
     command: --config /etc/otel-collector-config.yaml      
     networks:

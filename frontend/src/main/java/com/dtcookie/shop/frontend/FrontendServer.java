@@ -72,7 +72,7 @@ public class FrontendServer {
 	public static void validateCreditCard(Product product) throws Exception {
 		Span span = tracer.spanBuilder("validate-credit-card").setSpanKind(SpanKind.INTERNAL).startSpan();
 		try (Scope scope = span.makeCurrent()) {
-			Http.JDK.GET("http://localhost:" + Ports.CREDIT_CARD_LISTEN_PORT + "/validate-credit-card/"+product.getID(), null);
+			Http.JDK.GET("http://backend:" + Ports.CREDIT_CARD_LISTEN_PORT + "/validate-credit-card/"+product.getID(), null);
 			Span childSpan = tracer.spanBuilder("cc-valid").setParent(Context.current().with(span)).startSpan();
 			try {
 				Thread.sleep(50);
@@ -93,7 +93,7 @@ public class FrontendServer {
 		try (Scope scope = span.makeCurrent()) {
 			Span childSpan = tracer.spanBuilder("resolve-inventory-backend").setParent(Context.current().with(span)).startSpan();
 			try {
-				return Http.JDK.GET("http://localhost:" + Ports.INVENTORY_LISTEN_PORT + "/check-inventory/" + URLEncoder.encode(product.getName(), StandardCharsets.UTF_8), null);
+				return Http.JDK.GET("http://backend:" + Ports.INVENTORY_LISTEN_PORT + "/check-inventory/" + URLEncoder.encode(product.getName(), StandardCharsets.UTF_8), null);
 			} finally {
 				childSpan.end();
 			}			

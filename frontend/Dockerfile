@@ -22,14 +22,14 @@ ENV OTEL_TRACES_EXPORTER=none
 ENV OTEL_SERVICE_NAME=order-api
 ENV OTEL_METRICS_EXPORTER=otlp
 ENV OTEL_EXPORTER_OTLP_METRICS_PROTOCOL=http/protobuf
-ENV OTEL_EXPORTER_OTLP_METRICS_ENDPOINT=http://localhost:4318/v1/metrics
+ENV OTEL_EXPORTER_OTLP_METRICS_ENDPOINT=http://opentelemetry-collector:4318/v1/metrics
 ENV OTEL_JAVA_GLOBAL_AUTOCONFIGURE_ENABLED=true
 ENV OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE=DELTA
 # ENV OTEL_EXPORTER_OTLP_METRICS_HEADERS=Authorization=Api-Token dt0c01.########################.################################################################
 
 ENV OTEL_LOGS_EXPORTER=otlp
 ENV OTEL_EXPORTER_OTLP_LOGS_PROTOCOL=http/protobuf
-ENV OTEL_EXPORTER_OTLP_LOGS_ENDPOINT=http://localhost:4318/v1/logs
+ENV OTEL_EXPORTER_OTLP_LOGS_ENDPOINT=http://opentelemetry-collector:4318/v1/logs
 # ENV OTEL_EXPORTER_OTLP_LOGS_HEADERS=Authorization=Api-Token dt0c01.########################.################################################################
 
 # Set working directory and copy only the generated JAR from the build stage
