@@ -14,6 +14,8 @@ echo "export DT_ENVIRONMENT_HOST=$DT_ENVIRONMENT_HOST" >> ~/.bashrc
 
 sed -i "s/DYNATRACE_DOCKER_REGISTRY/$DT_ENVIRONMENT_HOST/g" ./frontend/Dockerfile
 
+sed -i "s/#alias ll='ls -l'/alias ll='ls -l'/g" ~/.bashrc
+
 # Download OpenTelemetry Java Auto Instrumentation Agent
 wget https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/latest/download/opentelemetry-javaagent.jar
 
