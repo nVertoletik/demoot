@@ -1,9 +1,11 @@
 version: '3.8'
 services:
   backend:
+    hostname: backend
     build:
       context: .
       dockerfile: ./backend/Dockerfile
+    image: shop/backend:latest
     depends_on:
       - quotes
     ports:
@@ -13,9 +15,11 @@ services:
       - app-network
 
   frontend:
+    hostname: frontend
     build:
       context: .
       dockerfile: ./frontend/Dockerfile
+    image: shop/frontend:latest
     depends_on:
       - backend
     ports:
@@ -24,9 +28,11 @@ services:
       - app-network
 
   quotes:
+    hostname: quotes
     build:
       context: .
       dockerfile: ./quotes/Dockerfile
+    image: shop/quotes:latest
     depends_on:
       - opentelemetry-collector
     ports:
@@ -38,6 +44,7 @@ services:
     build:
       context: .
       dockerfile: ./loadgen/Dockerfile
+    image: shop/loadgen:latest
     depends_on:
       - frontend
     networks:

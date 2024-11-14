@@ -1,5 +1,6 @@
 # Use a Maven image as the base to simplify Maven and Java setup
-FROM maven:3.8.5-openjdk-17-slim AS build
+# FROM maven:3.8.5-openjdk-17-slim AS build
+FROM shop/mvn:latest AS base
 
 # Set the working directory in the container
 WORKDIR /app

@@ -21,4 +21,4 @@ wget https://github.com/open-telemetry/opentelemetry-java-instrumentation/releas
 
 # Log into the docker registry hosted by the environment
 docker login https://$DT_ENVIRONMENT_HOST --username $ENVIRONMENT_ID --password $DT_API_TOKEN
-docker-compose up -d --build
+# docker-compose up -d --build
