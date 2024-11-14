@@ -19,11 +19,9 @@ exporters:
   debug:
     verbosity: normal
   otlphttp:
-    endpoint: https://########.sprint.dynatracelabs.com/api/v2/otlp
-    # --- for standard environments ---
-    # endpoint: https://########.live.dynatrace.com/api/v2/otlp
+    endpoint: https://${ENVIRONMENT_ID}.live.dynatrace.com/api/v2/otlp
     headers:
-      Authorization: "Api-Token ${OTEL_API_TOKEN}"
+      Authorization: "Api-Token ${DT_API_TOKEN}"
 
 service:
   pipelines:

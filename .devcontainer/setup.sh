@@ -2,9 +2,6 @@
 
 # mvn clean package
 
-# Download OpenTelemetry Java Auto Instrumentation Agent
-# wget https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/latest/download/opentelemetry-javaagent.jar
-
 ENVIRONMENT_ID=$(echo "$DT_ENVIRONMENT_URL" | sed -E 's#https://([^.]+).*#\1#')
 sudo sh -c "echo \"ENVIRONMENT_ID=$ENVIRONMENT_ID\" >> /etc/environment"
 echo "export ENVIRONMENT_ID=$ENVIRONMENT_ID" >> ~/.bashrc
@@ -16,11 +13,10 @@ sudo sh -c "echo \"DT_ENVIRONMENT_HOST=$DT_ENVIRONMENT_HOST\" >> /etc/environmen
 echo "export DT_ENVIRONMENT_HOST=$DT_ENVIRONMENT_HOST" >> ~/.bashrc
 
 sed -i "s/DYNATRACE_DOCKER_REGISTRY/$DT_ENVIRONMENT_HOST/g" ./frontend/Dockerfile
-# $DT_API_TOKEN
-# $DT_ENVIRONMENT_URL
 
 # Download OpenTelemetry Java Auto Instrumentation Agent
 wget https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/latest/download/opentelemetry-javaagent.jar
 
 # Log into the docker registry hosted by the environment
 docker login https://$DT_ENVIRONMENT_HOST --username $ENVIRONMENT_ID --password $DT_API_TOKEN
+docker-compose up -d --build

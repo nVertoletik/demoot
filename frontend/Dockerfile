@@ -13,8 +13,8 @@ RUN mvn clean install -DskipTests
 # Second stage for a lightweight runtime image
 FROM openjdk:17.0.1-jdk-slim
 
-COPY --from=DYNATRACE_DOCKER_REGISTRY/linux/oneagent-codemodules-musl:java / /
-ENV LD_PRELOAD /opt/dynatrace/oneagent/agent/lib64/liboneagentproc.so
+COPY --from=DYNATRACE_DOCKER_REGISTRY/linux/oneagent-codemodules:java / /
+ENV LD_PRELOAD=/opt/dynatrace/oneagent/agent/lib64/liboneagentproc.so
 
 ENV OTEL_PROPAGATORS=tracecontext
 ENV OTEL_TRACES_EXPORTER=none
