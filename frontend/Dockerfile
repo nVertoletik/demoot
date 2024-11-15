@@ -1,4 +1,6 @@
-FROM shop/mvn:latest AS build
+ARG DT_CODE_MODULE=siz65484.live.dynatrace.com/linux/oneagent-codemodules:java
+
+FROM maven:3.8.5-openjdk-17-slim AS build
 
 WORKDIR /app
 
@@ -8,8 +10,10 @@ RUN mvn clean install -Dmaven.repo.local=app/.m2 -DskipTests
 
 FROM openjdk:17.0.1-jdk-slim
 
-COPY --from=DYNATRACE_DOCKER_REGISTRY/linux/oneagent-codemodules:java / /
-ENV LD_PRELOAD=/opt/dynatrace/oneagent/agent/lib64/liboneagentproc.so
+# FROM ${DT_CODE_MODULE} AS codemodules
+# FROM $DT_CODE_MODULE/linux/oneagent-codemodules:java AS codemodules
+# COPY --from=DYNATRACE_DOCKER_REGISTRY/linux/oneagent-codemodules:java / /
+# ENV LD_PRELOAD=/opt/dynatrace/oneagent/agent/lib64/liboneagentproc.so
 
 ENV OTEL_PROPAGATORS=tracecontext
 ENV OTEL_TRACES_EXPORTER=none
