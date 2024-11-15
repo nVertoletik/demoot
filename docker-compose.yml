@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   backend:
-    hostname: backend
+    hostname: ${GITHUB_USER}-backend
     build:
       context: .
       dockerfile: ./backend/Dockerfile
@@ -15,7 +15,7 @@ services:
       - app-network
 
   frontend:
-    hostname: frontend
+    hostname: ${GITHUB_USER}-frontend
     build:
       context: .
       dockerfile: ./frontend/Dockerfile
@@ -30,7 +30,7 @@ services:
       - app-network
 
   quotes:
-    hostname: quotes
+    hostname: ${GITHUB_USER}-quotes
     build:
       context: .
       dockerfile: ./quotes/Dockerfile
