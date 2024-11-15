@@ -1,10 +1,7 @@
-FROM shop/mvn:latest AS build
-
+FROM maven:3.8.5-openjdk-17-slim AS build
 WORKDIR /app
-
 COPY . /app
-
-RUN mvn clean install -Dmaven.repo.local=app/.m2 -DskipTests
+RUN mvn clean install -DskipTests -B
 
 FROM openjdk:17.0.1-jdk-slim
 
@@ -31,7 +28,7 @@ ENV OTEL_EXPORTER_OTLP_LOGS_ENDPOINT=http://opentelemetry-collector:4318/v1/logs
 
 WORKDIR /app
 COPY --from=build /app/backend/target/backend-1.0-SNAPSHOT-all.jar backend.jar
-COPY --from=build /app/opentelemetry-javaagent.jar opentelemetry-javaagent.jar
+COPY opentelemetry-javaagent.jar opentelemetry-javaagent.jar
 
 EXPOSE 8080
 

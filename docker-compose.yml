@@ -19,6 +19,8 @@ services:
     build:
       context: .
       dockerfile: ./frontend/Dockerfile
+      args:
+        DT_CODE_MODULE: "${DT_ENVIRONMENT_HOST}/linux/oneagent-codemodules:java"
     image: shop/frontend:latest
     depends_on:
       - backend
