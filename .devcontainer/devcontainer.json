@@ -1,6 +1,6 @@
 {
-    "name": "Java Codespace",
-    "image": "mcr.microsoft.com/devcontainers/java:21",
+    "name": "Java Codespace",    
+    "dockerFile": "Dockerfile",
     "features": {
         "ghcr.io/devcontainers/features/java:1": {
             "version": "none",
@@ -13,7 +13,8 @@
         "extensions": [
           "vscjava.vscode-java-pack",
           "pivotal.vscode-spring-boot",
-          "redhat.vscode-xml"
+          "redhat.vscode-xml",
+          "ms-python.python"
         ]
       }
     },
@@ -21,6 +22,6 @@
         "DT_API_TOKEN": "${{ secrets.DT_API_TOKEN }}",
         "DT_ENVIRONMENT_URL": "${{ secrets.DT_ENVIRONMENT_URL }}"
     },
-    "postCreateCommand": "/bin/bash .devcontainer/postCreate.sh"
+    "postCreateCommand": "/bin/bash .devcontainer/postCreate.sh"  
   }
   
