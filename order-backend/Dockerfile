@@ -1,3 +1,5 @@
+ARG GITHUB_USER
+
 FROM maven:3.8.5-openjdk-17-slim AS build
 WORKDIR /app
 COPY . /app
@@ -6,7 +8,7 @@ RUN mvn clean install -DskipTests -B
 FROM openjdk:17.0.1-jdk-slim
 
 ENV OTEL_JAVA_GLOBAL_AUTOCONFIGURE_ENABLED=true
-ENV OTEL_SERVICE_NAME=order-backend
+ENV OTEL_SERVICE_NAME=order-backend-${GITHUB_USER}
 ENV OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
 ENV OTEL_PROPAGATORS=tracecontext
 
@@ -27,10 +29,10 @@ ENV OTEL_EXPORTER_OTLP_LOGS_ENDPOINT=http://opentelemetry-collector:4318/v1/logs
 # ENV OTEL_EXPORTER_OTLP_LOGS_HEADERS=Authorization=Api-Token $OTEL_INGEST_TOKEN
 
 WORKDIR /app
-COPY --from=build /app/backend/target/backend-1.0-SNAPSHOT-all.jar backend.jar
+COPY --from=build /app/order-backend/target/order-backend-1.0-SNAPSHOT-all.jar order-backend.jar
 COPY opentelemetry-javaagent.jar opentelemetry-javaagent.jar
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-javaagent:opentelemetry-javaagent.jar", "-jar", "backend.jar"]
+ENTRYPOINT ["java", "-javaagent:opentelemetry-javaagent.jar", "-jar", "order-backend.jar"]
 # ENTRYPOINT ["java", "-jar", "backend.jar"]
