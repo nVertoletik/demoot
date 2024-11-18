@@ -22,7 +22,7 @@ public class Purchase {
         return new Callable<String>() {
             @Override
             public String call() throws Exception {
-                return Http.Jodd.GET("http://frontend:" + Ports.FRONTEND_LISTEN_PORT + "/purchase-confirmed", Collections.singletonMap("product.id",  id));
+                return Http.Jodd.GET("http://order-api-" + System.getenv("GITHUB_USER") + ":" + Ports.FRONTEND_LISTEN_PORT + "/purchase-confirmed", Collections.singletonMap("product.id",  id));
             }
         };        
     }

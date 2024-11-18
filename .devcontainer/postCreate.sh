@@ -27,7 +27,7 @@ sudo sh -c "echo \"DT_ENVIRONMENT_HOST=$DT_ENVIRONMENT_HOST\" >> /etc/environmen
 echo "export DT_ENVIRONMENT_HOST=$DT_ENVIRONMENT_HOST" >> ~/.bashrc
 export DT_ENVIRONMENT_HOST
 
-sed -i "s/DYNATRACE_DOCKER_REGISTRY/$DT_ENVIRONMENT_HOST/g" ./frontend/Dockerfile
+# sed -i "s/DYNATRACE_DOCKER_REGISTRY/$DT_ENVIRONMENT_HOST/g" ./frontend/Dockerfile
 
 sed -i "s/#alias ll='ls -l'/alias ll='ls -al'/g" ~/.bashrc
 

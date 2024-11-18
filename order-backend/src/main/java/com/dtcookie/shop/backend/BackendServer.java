@@ -91,7 +91,8 @@ public class BackendServer {
 	}
 
 	public static void notifyProcessingBackend(Product product) throws Exception {
-		GETRequest request = new GETRequest("http://quotes:8090/quote");
+		
+		GETRequest request = new GETRequest("http://order-quotes-" + System.getenv("GITHUB_USER") + ":" + "8090/quote");
 		// GETRequest request = new GETRequest("http://<replace with remote IP address>/app");
 		request.send();
 	}

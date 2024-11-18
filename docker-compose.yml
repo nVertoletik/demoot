@@ -7,6 +7,8 @@ services:
     build:
       context: .
       dockerfile: ./order-backend/Dockerfile
+      args:
+        GITHUB_USER: ${GITHUB_USER}
     image: shop/order-backend:latest
     depends_on:
       - order-quotes
@@ -25,6 +27,7 @@ services:
       dockerfile: ./order-api/Dockerfile
       args:
         DT_CODE_MODULE: "${DT_ENVIRONMENT_HOST}/linux/oneagent-codemodules:java"
+        GITHUB_USER: ${GITHUB_USER}
     image: shop/order-api:latest
     depends_on:
       - order-backend
@@ -40,6 +43,8 @@ services:
     build:
       context: .
       dockerfile: ./order-quotes/Dockerfile
+      args:
+        GITHUB_USER: ${GITHUB_USER}
     image: shop/order-quotes:latest
     depends_on:
       - opentelemetry-collector
@@ -49,9 +54,13 @@ services:
       - app-network
 
   loadgen:
+    environment:
+      - GITHUB_USER=${GITHUB_USER}
     build:
       context: .
       dockerfile: ./loadgen/Dockerfile
+      args:
+        GITHUB_USER: ${GITHUB_USER}
     image: shop/loadgen:latest
     depends_on:
       - order-api

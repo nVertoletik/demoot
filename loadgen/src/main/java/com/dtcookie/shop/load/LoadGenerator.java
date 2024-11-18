@@ -25,7 +25,7 @@ public class LoadGenerator extends TimerTask {
 	}
 
 	public static Object sendRequest() throws Exception {
-		URL url = new URL("http://frontend:" + Ports.FRONTEND_LISTEN_PORT + "/place-order");
+		URL url = new URL("http://order-api-" + System.getenv("GITHUB_USER") + ":" + Ports.FRONTEND_LISTEN_PORT + "/place-order");
 		try (InputStream in = url.openStream()) {
 			Streams.drain(in);
 		}
