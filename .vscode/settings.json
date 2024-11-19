@@ -1,4 +1,6 @@
 {
     "java.telemetry.enabled": false,
-    "redhat.telemetry.enabled": false
+    "redhat.telemetry.enabled": false,
+    "remote.forwardedPorts.show": false,
+    "git.autoStage": true
 }
