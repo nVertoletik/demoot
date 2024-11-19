@@ -2,5 +2,8 @@
     "java.telemetry.enabled": false,
     "redhat.telemetry.enabled": false,
     "remote.forwardedPorts.show": false,
-    "git.autoStage": true
+    "git.autoStage": true,
+    "git.confirmSync": false,
+    "git.showCommitNotification": false,
+    "git.autofetch": false
 }
