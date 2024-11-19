@@ -69,7 +69,8 @@ services:
       - app-network
 
   opentelemetry-collector:
-    image: otel/opentelemetry-collector:latest
+    # image: otel/opentelemetry-collector:latest
+    image: ghcr.io/dynatrace/dynatrace-otel-collector/dynatrace-otel-collector:latest
     environment:
       - ENVIRONMENT_ID=${ENVIRONMENT_ID}
       - DT_API_TOKEN=${DT_API_TOKEN}    

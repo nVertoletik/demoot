@@ -11,7 +11,7 @@ COPY order-backend/pom.xml /app/order-backend/
 COPY common/pom.xml /app/common/
 
 RUN mvn dependency:resolve-plugins dependency:go-offline -B
-RUN curl -L -o /app/opentelemetry-javaagent.jar https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/latest/download/opentelemetry-javaagent.jar
+RUN curl -L -o /app/opentelemetry-javaagent.jar https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v2.10.0/opentelemetry-javaagent.jar
 
 WORKDIR /app
 COPY . /app
