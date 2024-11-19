@@ -45,6 +45,5 @@ ENV OTEL_EXPORTER_OTLP_LOGS_ENDPOINT=http://opentelemetry-collector:4318/v1/logs
 ARG GITHUB_USER
 WORKDIR /app
 ARG GITHUB_USER
-COPY --from=build /app/order-api/target/order-api-1.0-SNAPSHOT-all.jar order-api.jar
-
-ENTRYPOINT ["java", "-jar", "order-api.jar"]
+COPY --from=build /app/order-api/target/order-api-1.0-SNAPSHOT-all.jar order-api-${GITHUB_USER}.jar
+ENTRYPOINT ["sh", "-c", "java -jar order-api-${GITHUB_USER}.jar"]

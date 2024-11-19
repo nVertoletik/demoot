@@ -34,7 +34,7 @@ class CustomOpenTelemetry():
                 pass
 
         merged.update({
-        "service.name": "pysrvc svc on port 8090",
+        # "service.name": "pysrvc svc on port 8090",
         "service.version": "v1.0.0",
         })
         resource = Resource.create(merged)

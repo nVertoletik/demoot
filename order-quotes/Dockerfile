@@ -1,3 +1,5 @@
+ARG GITHUB_USER
+
 FROM python:3.10-slim
 
 WORKDIR /app
@@ -10,4 +12,8 @@ COPY . /app
 
 EXPOSE 8090
 
-CMD ["python", "order-quotes/main.py"]
+ARG GITHUB_USER
+ENV OTEL_SERVICE_NAME=order-quotes-${GITHUB_USER}
+
+ENTRYPOINT ["sh", "-c", "python order-quotes/main.py"]
+# CMD ["python", "order-quotes/main.py"]

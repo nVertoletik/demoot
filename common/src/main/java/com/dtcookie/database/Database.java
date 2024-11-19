@@ -47,7 +47,7 @@ public class Database {
     
     private static Connection newConnection() {
         try {
-            return DRIVER.connect("jdbc:datadirect:oracle://localhost:1521;ServiceName=ShopDatabase", new Properties());
+            return DRIVER.connect("jdbc:datadirect:oracle://localhost:1521;ServiceName=ShopDatabase-"+System.getenv("GITHUB_USER"), new Properties());
         } catch (SQLException e) {
             throw new InternalError(e);
         }        

@@ -29,6 +29,7 @@ services:
         DT_CODE_MODULE: "${DT_ENVIRONMENT_HOST}/linux/oneagent-codemodules:java"
         GITHUB_USER: ${GITHUB_USER}
     image: shop/order-api:latest
+    entrypoint: ["sh", "-c", "java -jar order-api-${GITHUB_USER}.jar"]
     depends_on:
       - order-backend
     ports:

@@ -11,6 +11,7 @@ COPY order-backend/pom.xml /app/order-backend/
 COPY common/pom.xml /app/common/
 
 RUN mvn dependency:resolve-plugins dependency:go-offline -B
+RUN curl -L -o /app/opentelemetry-javaagent.jar https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/latest/download/opentelemetry-javaagent.jar
 
 WORKDIR /app
 COPY . /app
@@ -42,7 +43,8 @@ ENV OTEL_EXPORTER_OTLP_LOGS_ENDPOINT=http://opentelemetry-collector:4318/v1/logs
 
 WORKDIR /app
 COPY --from=build /app/order-backend/target/order-backend-1.0-SNAPSHOT-all.jar order-backend.jar
-COPY opentelemetry-javaagent.jar opentelemetry-javaagent.jar
+COPY --from=build /app/opentelemetry-javaagent.jar opentelemetry-javaagent.jar
+# COPY opentelemetry-javaagent.jar opentelemetry-javaagent.jar
 
 EXPOSE 8080
 

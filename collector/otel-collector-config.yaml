@@ -29,10 +29,10 @@ service:
       receivers: [otlp]
       processors: [batch]
       exporters: [debug, otlphttp]
-    #logs:
-    #  receivers: [otlp]
-    #  processors: [batch]
-    #  exporters: [debug, otlphttp]
+    logs:
+     receivers: [otlp]
+     processors: [batch]
+     exporters: [debug, otlphttp]
     metrics:
       receivers: [otlp]
       processors: [batch, filter]

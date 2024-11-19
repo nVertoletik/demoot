@@ -110,8 +110,8 @@ public class BackendServer {
 			try (Scope scope = serverSpan.makeCurrent()) {
 				serverSpan.setAttribute(SemanticAttributes.HTTP_REQUEST_METHOD,
 						exchange.getRequestMethod().toUpperCase());
-				serverSpan.setAttribute(SemanticAttributes.URL_SCHEME, "http");
-				serverSpan.setAttribute(SemanticAttributes.SERVER_ADDRESS, "localhost:" + Ports.CREDIT_CARD_LISTEN_PORT);
+				serverSpan.setAttribute(SemanticAttributes.URL_SCHEME, "http");				
+				serverSpan.setAttribute(SemanticAttributes.SERVER_ADDRESS, "order-backend-" + System.getenv("GITHUB_USER") + ":" + Ports.CREDIT_CARD_LISTEN_PORT);
 				serverSpan.setAttribute(SemanticAttributes.URL_PATH, exchange.getRequestURI().toString());
 
 				UUID result = process(Product.random());
@@ -134,14 +134,18 @@ public class BackendServer {
 		String url = exchange.getRequestURI().toString();
 		String productName = url.substring(url.lastIndexOf("/"));
 		int quantity = 1;				
-		try (Scope ignored = Context.current().makeCurrent()) {
+		Headers headers = exchange.getRequestHeaders();
+		// Context ctx = Context.current();
+		Context ctx = openTelemetry.getPropagators().getTextMapPropagator().extract(Context.current(), headers, getter);
+
+		try (Scope ctScope = Context.current().makeCurrent()) {
 			Span serverSpan = tracer.spanBuilder(exchange.getRequestURI().toString()).setSpanKind(SpanKind.SERVER)
 					.startSpan();
 			try (Scope scope = serverSpan.makeCurrent()) {
 				serverSpan.setAttribute(SemanticAttributes.HTTP_REQUEST_METHOD,
 						exchange.getRequestMethod().toUpperCase());
-				serverSpan.setAttribute(SemanticAttributes.URL_SCHEME, "http");
-				serverSpan.setAttribute(SemanticAttributes.SERVER_ADDRESS, "localhost:" + Ports.INVENTORY_LISTEN_PORT);
+				serverSpan.setAttribute(SemanticAttributes.URL_SCHEME, "http");				
+				serverSpan.setAttribute(SemanticAttributes.SERVER_ADDRESS, "order-backend-" + System.getenv("GITHUB_USER") + ":" + Ports.INVENTORY_LISTEN_PORT);
 				serverSpan.setAttribute(SemanticAttributes.URL_PATH, exchange.getRequestURI().toString());
 
 				Database.execute("SELECT * FROM products WHERE name = '" + productName + "'");

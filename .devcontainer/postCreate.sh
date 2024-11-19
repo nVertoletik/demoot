@@ -31,8 +31,8 @@ export DT_ENVIRONMENT_HOST
 
 sed -i "s/#alias ll='ls -l'/alias ll='ls -al'/g" ~/.bashrc
 
-# Download OpenTelemetry Java Auto Instrumentation Agent
-wget https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/latest/download/opentelemetry-javaagent.jar
+# # Download OpenTelemetry Java Auto Instrumentation Agent
+# wget https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/latest/download/opentelemetry-javaagent.jar
 
 sudo nohup dockerd > /dev/null 2>&1 &
 # Log into the docker registry hosted by the environment
