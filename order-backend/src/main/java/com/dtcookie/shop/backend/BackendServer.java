@@ -134,11 +134,11 @@ public class BackendServer {
 		String url = exchange.getRequestURI().toString();
 		String productName = url.substring(url.lastIndexOf("/"));
 		int quantity = 1;				
+
 		Headers headers = exchange.getRequestHeaders();
-		// Context ctx = Context.current();
 		Context ctx = openTelemetry.getPropagators().getTextMapPropagator().extract(Context.current(), headers, getter);
 
-		try (Scope ctScope = Context.current().makeCurrent()) {
+		try (Scope ctScope = ctx.makeCurrent()) {
 			Span serverSpan = tracer.spanBuilder(exchange.getRequestURI().toString()).setSpanKind(SpanKind.SERVER)
 					.startSpan();
 			try (Scope scope = serverSpan.makeCurrent()) {
